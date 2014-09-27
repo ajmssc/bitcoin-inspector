@@ -973,3 +973,19 @@ Consuming from topic 'bitcoin_transactions' in consumer group consumer into /dat
 /usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927085000_4.dat /data/bitcoin_transactions/20140927085000_4.dat 2> /dev/null
 /usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
 /usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927085000_5.dat /data/bitcoin_transactions/20140927085000_5.dat 2> /dev/null
+Lock acquired
+
+Consuming topic: [bitcoin_transactions] into HDFS
+Consuming from topic 'bitcoin_transactions' in consumer group consumer into /data...
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_0.dat /data/bitcoin_transactions/20140927095000_0.dat 2> /dev/null
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_1.dat /data/bitcoin_transactions/20140927095000_1.dat 2> /dev/null
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_2.dat /data/bitcoin_transactions/20140927095000_2.dat 2> /dev/null
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_3.dat /data/bitcoin_transactions/20140927095000_3.dat 2> /dev/null
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_4.dat /data/bitcoin_transactions/20140927095000_4.dat 2> /dev/null
+/usr/bin/hdfs dfs -mkdir /data/bitcoin_transactions 2> /dev/null
+/usr/bin/hdfs dfs -put -f /tmp/kafka_bitcoin_transactions_consumer_20140927095000_5.dat /data/bitcoin_transactions/20140927095000_5.dat 2> /dev/null
