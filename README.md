@@ -29,3 +29,7 @@ Read further for more details about the pipeline and instructions.
 
 
 
+
+
+More details at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
+
