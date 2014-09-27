@@ -18,7 +18,7 @@ Read further for more details about the pipeline and instructions.
 - Python jobs query the bitcoin RPC client and get JSON data. That JSON data is pushed to Kafka. Tracking of current block is done using a HBase entry but can also be done using a temporary file in the folder.
 - Python jobs consume the data from Kafka and store it in HDFS. Runs every hour. The file names are tagged using a timestamp.
 - Map Reduce is run using MrJob to create multiple key-value pairs into HBase (and MySQL for wallet balance).
-- Flask reads from HBase
+- Flask reads from HBase and serves charts using HighCharts/Jquery/Bootstrap
 
 ### Realtime data
 
