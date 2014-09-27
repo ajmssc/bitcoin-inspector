@@ -27,7 +27,7 @@ Read further for more details about the pipeline and instructions.
 - 1 Bolt monitors transactions and writes into HBase. The table has a TTL of 120s to automatically get rid of old transactions.
 - The Storm topology is loaded using streamparse.
 
-
+YT("ArHQjQyIS70", print = TRUE)
 
 
 
