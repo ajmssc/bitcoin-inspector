@@ -1,0 +1,86 @@
+
+disable 'block_data'
+drop 'block_data'
+create 'block_data', 'metadata', 'transactions'
+describe 'block_data'
+
+
+disable 'block_transactions'
+drop 'block_transactions'
+create 'block_transactions', 'metadata'
+describe 'block_transactions'
+
+
+disable 'realtime'
+drop 'realtime'
+create 'realtime', {'NAME' => 'metadata', 'TTL' => 120}
+describe 'realtime'
+
+disable 'realtime_counters'
+drop 'realtime_counters'
+create 'realtime_counters', 'metadata'
+describe 'realtime_counters'
+
+
+
+disable 'settings'
+drop 'settings'
+create 'settings', 'metadata', 'urls', 'data'
+describe 'settings'
+
+
+
+
+
+
+disable 'wallet_classes'
+drop 'wallet_classes'
+create 'wallet_classes', 'metadata'
+describe 'wallet_classes'
+
+
+
+
+
+
+
+
+
+disable 'bitcoin_historical_prices'
+drop 'bitcoin_historical_prices'
+create 'bitcoin_historical_prices', 'metadata', 'in', 'out'
+describe 'bitcoin_historical_prices'
+
+
+
+
+
+
+disable 'wallets'
+drop 'wallets'
+create 'wallets', 'metadata'
+describe 'wallets'
+
+
+
+
+
+
+
+
+
+
+
+
+disable 'realtime_transactions'
+drop 'realtime_transactions'
+create 'realtime_transactions', {'NAME' => 'metadata', 'TTL' => 65}, {'NAME' => 'in', 'TTL' => 65}, {'NAME' => 'out', 'TTL' => 15}
+describe 'realtime_transactions'
+
+
+
+
+
+, {'NAME' => 'metadata', 'TTL' => 15}
+
+create 'realtime_transactions', 'metadata', 'in', 'out'

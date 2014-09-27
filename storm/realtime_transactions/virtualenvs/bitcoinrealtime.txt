@@ -1,0 +1,7 @@
+streamparse # always required for streamparse projects
+pycrypto
+ecdsa
+kafka-python
+protobuf
+happybase
+numpy

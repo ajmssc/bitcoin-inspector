@@ -1,0 +1,13 @@
+{	"version":1,
+	"partitions":[
+		{"topic":"realtime",
+			"partition":0,
+			"replicas":[3]
+		},
+		{"topic":"realtime",
+			"partition":1,
+			"replicas":[4]
+		}
+	]
+}
+

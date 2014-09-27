@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.soumet.stormtest</groupId>
+  <artifactId>storm-test</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>storm-test</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+    	<groupId>org.apache.storm</groupId>
+    	<artifactId>storm-core</artifactId>
+    	<version>0.9.2-incubating</version>
+    	<scope>provided</scope>
+    </dependency>
+
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_2.10</artifactId>
+      <version>0.8.1.1</version>
+      <!-- <scope>provided</scope> -->
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>3.3.2</version>
+        <exclusions>
+            <exclusion>
+                <groupId>com.sun.jmx</groupId>
+                <artifactId>jmxri</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>com.sun.jdmk</groupId>
+                <artifactId>jmxtools</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>javax.jms</groupId>
+                <artifactId>jms</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+
+    <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+    </dependency>
+
+
+
+
+    <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>2.4.1</version>
+    </dependency>
+
+
+
+
+  </dependencies>
+
+
+
+   <pluginRepositories>
+                <pluginRepository>
+                    <id>protoc-plugin</id>
+                    <url>http://maven.davidtrott.com/repository</url>
+                </pluginRepository>
+        </pluginRepositories>
+
+
+  <build>
+    <plugins>
+
+
+
+
+
+
+
+    	<plugin>
+    		<artifactId>maven-compiler-plugin</artifactId>
+    		<version>2.3.2</version>
+    		<configuration>
+    			<source>1.6</source>
+    			<target>1.6</target>
+    		</configuration>
+      </plugin>
+
+
+      <plugin>
+          <groupId>com.google.protobuf.tools</groupId>
+          <artifactId>maven-protoc-plugin</artifactId>
+          <version>0.1.10</version>
+          <configuration>
+            <protocExecutable>/usr/bin/protoc</protocExecutable>
+            <protoSourceRoot>${project.basedir}/src/main/proto/</protoSourceRoot>
+            <languageSpecifications>
+                <LanguageSpecification>
+                   <language>JAVA</language>
+                   <outputDirectory>
+                        ${project.basedir}/src/main/java/com/soumet/stormtest
+                   </outputDirectory>
+                </LanguageSpecification>
+            </languageSpecifications>
+          </configuration>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>compile</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+
+
+
+      <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>single</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
+      </plugin> 
+    </plugins>
+  </build>
+</project>
