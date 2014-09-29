@@ -19,17 +19,15 @@ For an explanation of Bitcoin please follow [Khan Academy's Bitcoin explanation]
 
 ## Live Demo
 A live demo is currently (September 2014) running at http://bitcoin-inspector.com
-A screencast is also available on [Youtube](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) in case of a server downtime
+A [screencast](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) is also available on Youtube in case of a server downtime
 
 Read further for more details about the project
 
 ## The data
-
+![data](github/images/data.png)
+As of September 2014, the Bitcoin block chain (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed using the bitcoin client.
 
 ## Connecting to the Bitcoin network
-![data](github/images/data.png)
-
-As of September 2014, the Bitcoin block chain (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed using the bitcoin client.
 ![client](github/images/bitcoin-client.png)
 
 The pipeline obtains data from the bitcoin client directly, using the JSON RPC API. The bitcoin client allows querying for specific blocks (by hash and block #) and responds with JSON formatted data. Python jobs (see bitcoin-client repository) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
@@ -150,4 +148,4 @@ runners:
 
 
 ## Presentation slides
-My presentation slides are available at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
+My tresentation slides are available at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
