@@ -22,7 +22,7 @@ if __name__ == '__main__':
 				total_entries += 1
 				if total_entries % 25000 == 0:
 					db.commit()
-					print "Commit %s" % total_entries
+					#print "Commit %s" % total_entries
 			except Exception, e:
 				print "Error - %s" % e
 				pass

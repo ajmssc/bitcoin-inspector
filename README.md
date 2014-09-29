@@ -4,7 +4,10 @@ bitcoin-inspector
 My project as part of Insight Data Science's fellowship program - September 2014
 
 Big data pipeline supporting queries against the bitcoin network.
-Currently running at http://bitcoin.soumet.com
+Live demo currently running at http://bitcoin-inspector.com
+Demo also available on Youtube in case of server downtime: https://www.youtube.com/watch?v=3UJqJWoZ8Ro
+
+
 
 Read further for more details about the pipeline and instructions.
 
@@ -27,7 +30,6 @@ Read further for more details about the pipeline and instructions.
 - 1 Bolt monitors transactions and writes into HBase. The table has a TTL of 120s to automatically get rid of old transactions.
 - The Storm topology is loaded using streamparse.
 
-YT("ArHQjQyIS70", print = TRUE)
 
 
 

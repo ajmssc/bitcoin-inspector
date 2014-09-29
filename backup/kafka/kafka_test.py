@@ -1,7 +1,7 @@
 from kafka import KafkaClient, SimpleProducer, SimpleConsumer
 
 # To send messages synchronously
-kafka = KafkaClient("127.0.0.1:9092")
+kafka = KafkaClient("cloud.soumet.com:9092")
 producer = SimpleProducer(kafka)
 
 
@@ -9,7 +9,7 @@ producer = SimpleProducer(kafka)
 #producer.send_messages("bitcoin", "some message")
 
 
-consumer = SimpleConsumer(kafka, "consumer", "bitcoin_blocks")
+consumer = SimpleConsumer(kafka, "consumer", "bitcoin_exchange_tmp", max_buffer_size=1310720000)
 for message in consumer:
     # message is raw byte string -- decode if necessary!
     # e.g., for unicode: `message.decode('utf-8')`
