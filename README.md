@@ -1,11 +1,17 @@
-bitcoin-inspector
+Bitcoin Inspector
 =================
 
-My project as part of Insight Data Science's fellowship program - September 2014
+My big data project as part of Insight Data Science's Engineering fellowship program - September 2014
 
-Big data pipeline supporting queries against the bitcoin network.
-Live demo currently running at http://bitcoin-inspector.com
-Demo also available on Youtube in case of server downtime: https://www.youtube.com/watch?v=3UJqJWoZ8Ro
+
+# Intro
+Bitcoin Inspector is an open-source data pipeline that supports historical and live queries against the bitcoin network. It includes dynamic charts and visualizations with drilldown capabilities to explore bitcoin related data.
+
+For an explanation of Bitcoin please follow [Khan Academy's Bitcoin explanation](https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking/bitcoin/v/bitcoin-what-is-it)
+
+# Live Demo
+A live demo is currently running at http://bitcoin-inspector.com
+The demo is also available on [Youtube](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) in case of a server downtime
 
 
 
@@ -34,4 +40,3 @@ Read further for more details about the pipeline and instructions.
 
 
 More details at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
-
