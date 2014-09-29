@@ -51,7 +51,7 @@ Hourly jobs then consume the data from the Kafka topics and save it directly int
 ## Dynamic Time Range Keying
 ![alt tag](github/images/dynamic_key.png)
 
-I used 3 levels of aggregation for grouping of events (count of blocks, transactions, etc...). The purpose of creating **3 set of keys** out of each data point is to allow querying time series at different "zoom" levels. When pulling all data in a chart from 2009 to 2014, it is more efficient to pull daily aggregates. After zooming in on a more precise range (ex: 2 months), we can use the hourly level aggregate key to get more granular data. We do this again when zooming in on a 10 day interval where we are now interested in looking at the data by the minute.
+I implemented **3 levels of aggregation** for event aggregation (count of blocks, transactions, etc...). Creating **3 key/value pairs** out of each data point allows for querying the time series at different "zoom" levels. When pulling all data in a chart from 2009 to 2014, it is more efficient to pull daily aggregates because the data volume at a minute level from 2009 to 2014 would be huge and computationally intensive for HighCharts to render. After zooming in on a more precise range (ex: 2 months), we can use the hourly level aggregate key to obtain more granular data for a smaller interval. We do this again when zooming in on a 10 day interval where we are now interested in looking at the data by the minute.
 
 To do this calculation I used **MapReduce jobs** that output 3 keys out of each timestamp (see Batch Processing diagram). The **Flask API** script dynamically selects which key to use based on the range of the query (less than 2 months => hourly, less than 10 days => minute). **Highcharts** automatically reloads the data and adjusts the upper and lower time bounds.
 
@@ -69,11 +69,11 @@ I used **Yelp's MrJob** project to run MapReduce jobs using Python.
 ## Realtime Processing
 ![alt tag](github/images/storm.png)
 
-I used Apache Storm to provide real-time aggregates and do simple data processing
-- A Storm Spout reads data from the Kafka "realtime" topic
-- 1 Storm Bolt collects periodic metrics and statistics and stores them in HBase
-- 1 Storm Bolt monitors incoming transactions and stores them in HBase. The table has a TTL of 120s to automatically clear old transactions.
-- The Storm topology is loaded via streamparse.
+I used **Apache Storm** to provide real-time aggregates and do simple data processing
+- A single **Storm Spout** reads data from the Kafka "realtime" topic
+- 1 **Storm Bolt** collects periodic metrics and statistics and stores them in HBase
+- 1 **Storm Bolt** monitors incoming transactions and stores them in HBase. The table has a **TTL of 120s** which automatically clears old transactions.
+- The Storm topology is loaded via **StreamParse**.
 
 
 ## Install And Setup:
@@ -119,6 +119,11 @@ MrJob MapReduce
 /usr/bin/python /home/admin/project/mrjob/mapred_run_wallets.py --file=/home/admin/project/mrjob/bitcoin_pb2.py  --hadoop-bin /usr/bin/hadoop -r hadoop hdfs:////data/bitcoin_transactions/*.dat >> /home/admin/project/mrjob/wallet.log
 ```
 
+Load the Storm topology
+```
+cd storm/realtime_transactions && sparse submit
+```
+
 Apache ModWSGI to Flask configuration
 ```
 <VirtualHost *:80>
@@ -149,4 +154,4 @@ runners:
 
 
 ## Presentation Deck
-My tresentation slides are available at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
+My presentation slides are available at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
