@@ -5,7 +5,7 @@ Bitcoin Inspector
 
 
 ## Intro
-Bitcoin Inspector is an open-source data pipeline that supports historical and live queries against the bitcoin network. It includes dynamic charts and visualizations with drilldown capabilities to explore bitcoin related data.
+**Bitcoin Inspector** is an open-source data pipeline that supports historical and live queries against the bitcoin network. It includes dynamic charts and visualizations with drilldown capabilities to explore bitcoin related data.
 It makes use of the following technologies:
 - Kafka
 - Storm
