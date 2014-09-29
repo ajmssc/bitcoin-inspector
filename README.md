@@ -1,7 +1,7 @@
 Bitcoin Inspector
 =================
 
-[Bitcoin Inspector](http://bitcoin-inspector.com) was my big data project as part of [Insight Data Science's](http://insightdataengineering.com/) Engineering fellowship program from September through October 2014
+[Bitcoin Inspector](http://bitcoin-inspector.com) was my big data project as part of [Insight Data Science's](http://insightdataengineering.com/) Engineering fellowship program from September 2014 through October 2014
 
 
 ## Intro
@@ -15,7 +15,7 @@ It makes use of the following technologies:
 - MySQL
 - Flask with the following frameworks: HighCharts, jQuery, Bootstrap, metisMenu, Font Awesome, SBAdmin2 css theme
 
-For an explanation of Bitcoin please follow [Khan Academy's Bitcoin explanation](https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking/bitcoin/v/bitcoin-what-is-it)
+For an explanation of Bitcoin please visit [Khan Academy's explanation of Bitcoin](https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking/bitcoin/v/bitcoin-what-is-it)
 
 ## Live Demo
 A live demo is currently (September 2014) running at http://bitcoin-inspector.com
@@ -24,26 +24,26 @@ A [screencast](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) is also available on
 Read further for more details about the project
 
 ## The data
-As of September 2014, the Bitcoin block chain (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed using the bitcoin client.
+As of September 2014, the **Bitcoin block chain** (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed by querying the bitcoin client.
 
 ![data](github/images/data.png)
 
 ## Connecting to the Bitcoin network
 ![client](github/images/bitcoin-client.png)
 
-The pipeline obtains data from the bitcoin client directly, using the JSON RPC API. The bitcoin client allows querying for specific blocks (by hash and block #) and responds with JSON formatted data. Python jobs (see bitcoin-client repository) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
+The pipeline obtains data from the bitcoin client using a **JSON RPC API**. The bitcoin client allows querying for specific blocks (by hash and by block #) and responds with JSON formatted data. Python jobs (see bitcoin-client repository) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
 
-Another Python job also polls exchange data from the btc-e.com (Bitcoin Exchange) website for monitoring the exchange rate in various currencies.
+Another Python job also polls exchange data from the [btc-e.com](http://btc-e.com) (Bitcoin Exchange) website for monitoring the exchange rate in various currencies.
 
 ## Pipeline Overview
 ![alt tag](github/images/pipeline.png)
 
-The data from the bitcoin client is converted into [Protocol Buffers](https://code.google.com/p/protobuf/) to strip the json headers, and base64 encoded to allow easier decoding in the mapreduce jobs. 
+The data from the bitcoin client is converted into [Protocol Buffers](https://code.google.com/p/protobuf/) to strip the json headers and validate the data, and base64 encoded to allow easier decoding by the mapreduce jobs. 
 It is then sent to Apache Kafka in 3 separate topics:
-- bitcoin_blocks: topic for historical block data
-- bitcoin_transactions: topic for historical transaction data
-- realtime: topic for realtime transaction data
-- bitcoin_exchange: topic for conversion from Bitcoin to other currencies
+- **bitcoin_blocks**: topic for historical block data
+- **bitcoin_transactions**: topic for historical transaction data
+- **realtime**: topic for realtime transaction data
+- **bitcoin_exchange**: topic for exchange conversions from Bitcoin to other currencies (USD, RUR, EUR)
 
 Hourly jobs then consume the data from the Kafka topics and save it directly into HDFS (see kafka_to_hadoop*.py). The files are tagged using a timestamp.
 
@@ -51,19 +51,19 @@ Hourly jobs then consume the data from the Kafka topics and save it directly int
 ## Dynamic time range keying
 ![alt tag](github/images/dynamic_key.png)
 
-I used 3 levels of aggregation for grouping events (count of blocks, transactions, etc...). The purpose of creating 3 set of keys out of each timestamp is to allow querying data at different "zoom" levels. When pulling all data in a chart from 2009 to 2014, it is faster to only look at daily aggregates. After zooming in on a more precise range (ex: 2 months), we can use the hourly level aggregate key to get more granular data. We do this again when zooming in on a 10 day interval where we are now interested in looking at the data by the minute.
+I used 3 levels of aggregation for grouping of events (count of blocks, transactions, etc...). The purpose of creating **3 set of keys** out of each data point is to allow querying time series at different "zoom" levels. When pulling all data in a chart from 2009 to 2014, it is more efficient to pull daily aggregates. After zooming in on a more precise range (ex: 2 months), we can use the hourly level aggregate key to get more granular data. We do this again when zooming in on a 10 day interval where we are now interested in looking at the data by the minute.
 
-To do this calculation I used MapReduce jobs that create 3 keys out of each timestamp. The Flask API script dynamically selects which key to use based on the range of the query (less than 2 months => hourly, less than 10 days => minute). Highcharts automatically reloads the data and adjusts the upper and lower time bounds.
+To do this calculation I used MapReduce jobs that create 3 keys out of each timestamp. The **Flask API** script dynamically selects which key to use based on the range of the query (less than 2 months => hourly, less than 10 days => minute). **Highcharts** automatically reloads the data and adjusts the upper and lower time bounds.
 
 ## Batch processing
 ![alt tag](github/images/mapreduce.png)
 
-I used Yelp's MrJob project to run MapReduce jobs using Python. 
-- mapred_run_blocks.py: load historical block data into HBase. Calculate daily/hourly/minute aggregates (sums) to enable charting new bitcoins created from 2009-2014
-- mapred_run_transactions.py: load historical transaction data into HBase. Calculate aggregates the same way the block history job does.
-- mapred_run_wallets/buckets.py: Aggregate transaction flow for each Bitcoin address (in and out) to calculate the ending balance of the wallet. Save cardinality data into HBase and actual balance in MySQL to support range querying.
-- mapred_run_exchange.py: load exchange data and calculate aggregates the same way the block history job does.
-- mapred_run_graph.py: attempt at creating a wallet graph based on transaction data
+I used **Yelp's MrJob** project to run MapReduce jobs using Python. 
+- **mapred_run_blocks.py**: load historical block data into **HBase**. Calculate daily/hourly/minute aggregates (sums) to enable charting new bitcoins created from 2009-2014
+- **mapred_run_transactions.py**: load historical transaction data into **HBase**. Calculate aggregates the same way we do for the block history.
+- **mapred_run_wallets/buckets.py**: Aggregate transaction flow for each Bitcoin address (in and out) to calculate the ending balance of the wallet. Save cardinality data into **HBase** and actual balance (5+ M records) in **MySQL** to support range querying.
+- **mapred_run_exchange.py**: load exchange data and calculate aggregates the same way we do for the block history.
+- **mapred_run_graph.py**: attempt at creating a wallet graph based on transaction data
 
 
 ## Realtime processing
