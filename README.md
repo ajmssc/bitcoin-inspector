@@ -7,8 +7,8 @@ Bitcoin Inspector
 ## Intro
 **Bitcoin Inspector** is an open-source data pipeline that supports historical and live queries against the bitcoin network. It includes dynamic charts and visualizations with drilldown capabilities to explore bitcoin related data.
 It makes use of the following technologies:
-- Kafka
-- Storm
+- Kafka 0.8.1.1
+- Storm 0.9.2
 - Hadoop
 - Yelp's MrJob mapreduce framework
 - HBase
@@ -69,7 +69,7 @@ I used **Yelp's MrJob** project to run MapReduce jobs using Python.
 ## Realtime Processing
 ![alt tag](github/images/storm.png)
 
-I used **Apache Storm** to provide real-time aggregates and do simple data processing
+I used **Apache Storm** to provide real-time aggregates and do simple data processing.
 - A single **Storm Spout** reads data from the Kafka "realtime" topic
 - 1 **Storm Bolt** collects periodic metrics and statistics and stores them in HBase
 - 1 **Storm Bolt** monitors incoming transactions and stores them in HBase. The table has a **TTL of 120s** which automatically clears old transactions.
@@ -78,8 +78,10 @@ I used **Apache Storm** to provide real-time aggregates and do simple data proce
 
 ## Install And Setup:
 
-Instructions are specific to Debian/Ubuntu
+Instructions are specific to Debian/Ubuntu.
+
 Install required packages
+
 ```
 sudo apt-get update
 sudo apt-get -y install git build-essential autoconf automake libtool libboost-all-dev pkg-config libcurl4-openssl-dev libleveldb-dev libssl-dev libdb++-dev mailutils python-pip apache2 mysql-server php5 php5-mysql php5-curl php5-mcrypt maven protobuf-compiler cmake zlib1g-dev pkg-config libxml2-dev libxslt1-dev python-dev libmysqlclient-dev mysql-server libsqlite3-dev libldap2-dev libsasl2-dev libssl-dev curl
@@ -95,12 +97,12 @@ update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_05/bin/java 1
 update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_05/bin/javac 100
 ```
 
-Install python packages
+Install python packages.
 ```
 sudo pip install protobuf happybase numpy mysql-connector-python mrjob streamparse
 ```
 
-Install Kafka (see my [tutorial](https://github.com/ajmssc/kafka-insight-tutorial), Storm, the Bitcoin client
+Install Kafka (see my [tutorial](https://github.com/ajmssc/kafka-insight-tutorial), Storm, and the Bitcoin client.
 
 
 ## Command Line Examples
