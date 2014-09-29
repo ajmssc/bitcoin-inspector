@@ -24,8 +24,9 @@ A [screencast](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) is also available on
 Read further for more details about the project
 
 ## The data
-![data](github/images/data.png)
 As of September 2014, the Bitcoin block chain (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed using the bitcoin client.
+
+![data](github/images/data.png)
 
 ## Connecting to the Bitcoin network
 ![client](github/images/bitcoin-client.png)
