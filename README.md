@@ -23,12 +23,12 @@ A [screencast](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) is also available on
 
 Read further for more details about the project
 
-## The data
+## The Data
 As of September 2014, the **Bitcoin block chain** (the transaction log since the creation of Bitcoin) is over 320k blocks long. On average a new block is added to the chain roughly every 10 minutes, and each block contains a list of transactions and also new bitcoins added to the pool (process of mining). The historical block chain data is over 25 GB in total and can be accessed by querying the bitcoin client.
 
 ![data](github/images/data.png)
 
-## Connecting to the Bitcoin network
+## Connecting To The Bitcoin Network
 ![client](github/images/bitcoin-client.png)
 
 The pipeline obtains data from the bitcoin client using a **JSON RPC API**. The bitcoin client allows querying for specific blocks (by hash and by block #) and responds with JSON formatted data. Python jobs (see bitcoin-client repository) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
@@ -48,14 +48,14 @@ It is then sent to Apache Kafka in 3 separate topics:
 Hourly jobs then consume the data from the Kafka topics and save it directly into HDFS (see kafka_to_hadoop*.py). The files are tagged using a timestamp.
 
 
-## Dynamic time range keying
+## Dynamic Time Range Keying
 ![alt tag](github/images/dynamic_key.png)
 
 I used 3 levels of aggregation for grouping of events (count of blocks, transactions, etc...). The purpose of creating **3 set of keys** out of each data point is to allow querying time series at different "zoom" levels. When pulling all data in a chart from 2009 to 2014, it is more efficient to pull daily aggregates. After zooming in on a more precise range (ex: 2 months), we can use the hourly level aggregate key to get more granular data. We do this again when zooming in on a 10 day interval where we are now interested in looking at the data by the minute.
 
-To do this calculation I used MapReduce jobs that create 3 keys out of each timestamp. The **Flask API** script dynamically selects which key to use based on the range of the query (less than 2 months => hourly, less than 10 days => minute). **Highcharts** automatically reloads the data and adjusts the upper and lower time bounds.
+To do this calculation I used **MapReduce jobs** that output 3 keys out of each timestamp (see Batch Processing diagram). The **Flask API** script dynamically selects which key to use based on the range of the query (less than 2 months => hourly, less than 10 days => minute). **Highcharts** automatically reloads the data and adjusts the upper and lower time bounds.
 
-## Batch processing
+## Batch Processing
 ![alt tag](github/images/mapreduce.png)
 
 I used **Yelp's MrJob** project to run MapReduce jobs using Python. 
@@ -66,7 +66,7 @@ I used **Yelp's MrJob** project to run MapReduce jobs using Python.
 - **mapred_run_graph.py**: attempt at creating a wallet graph based on transaction data
 
 
-## Realtime processing
+## Realtime Processing
 ![alt tag](github/images/storm.png)
 
 I used Apache Storm to provide real-time aggregates and do simple data processing
@@ -76,7 +76,7 @@ I used Apache Storm to provide real-time aggregates and do simple data processin
 - The Storm topology is loaded via streamparse.
 
 
-## Install and setup:
+## Install And Setup:
 
 Instructions are specific to Debian/Ubuntu
 Install required packages
@@ -148,5 +148,5 @@ runners:
 ```
 
 
-## Presentation slides
+## Presentation Deck
 My tresentation slides are available at http://www.slideshare.net/Jeanmarcsoumet/bitcoin-data-pipeline-insight-data-science-project
