@@ -6,35 +6,38 @@ import bitcoin_pb2, base64
 
 from mrjob.job import MRJob
 
+def get_hash(btcaddress):
+	return hash(btcaddress)
+	#return hash(btcaddress) % ((sys.maxsize + 1) * 2)
 
-class Bitcoin_job(MRJob):
-	def steps(self):
-		# return [self.mr(mapper=self.mapper1,
-		# 				reducer=self.reducer1),
-		# 		self.mr(reducer=self.reducer2)]
-		return [self.mr(mapper=self.mapper1,reducer=self.reducer1)]
-
-	def mapper1(self, _, line):
+class Graph_job(MRJob):
+	# def steps(self):
+	# 	# return [self.mr(mapper=self.mapper1,
+	# 	# 				reducer=self.reducer1),
+	# 	# 		self.mr(reducer=self.reducer2)]
+	# 	return [self.mr(mapper=self.mapper,reducer=self.reducer)]
+	def mapper(self, _, line):
 		transaction = bitcoin_pb2.TransactionFull()
 		transaction.ParseFromString(base64.b64decode(line))
+		vin_amount = 0
+		vout_amount = 0
 		for vin in transaction.vin:
-			#yield (vin.address, 0 - vin.amount)
+			yield ('vertex_' + str(vin.address), get_hash(vin.address))
+		for vout in transaction.vout:
+			yield ('vertex_' + str(vout.address), get_hash(vout.address))
+		for vin in transaction.vin:
 			for vout in transaction.vout:
-				yield (vin.address, vout.address)
+				yield ('trans_' + str(get_hash(vin.address)) + '_' +  str(get_hash(vout.address)), 1)
 
-	def reducer1(self, vin, vouts):
-		for vout in set(vouts):
-			yield (vin, vout)
-		#tmp_sum = sum(counts)
-		#if tmp_sum < 0:
-		#	tmp_sum = 0
-		#yield ("wallet_0_%012d" % int(tmp_sum), 1)
-		#yield ("wallet_1_%012d" % int(tmp_sum/10), 1)
-		#yield ("wallet_2_%012d" % int(tmp_sum/100), 1)
-		#yield ("wallet_3_%012d" % int(tmp_sum/1000), 1)
+	def reducer(self, keys, counts):
+		key_arr = keys.split('_')
+		if key_arr[0] == 'vertex':
+			yield keys, list(counts)[0]
+		else: #edge
+			vin = key_arr[1]
+			vout = key_arr[2]
+			yield ('edge_' + vin + '_' + vout, sum(counts))
 
-	def reducer2(self, key, counts):
-		yield (key, sum(counts))
 
 if __name__ == '__main__':
-	Bitcoin_job.run()
+	Graph_job.run()

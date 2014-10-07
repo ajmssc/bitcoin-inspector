@@ -20,10 +20,10 @@ class Bitcoin_job(MRJob):
 			price = float(line_r[1])
 			timestamp = int(line_r[0])
 
-		
-		yield str("BTC_%s_daily_%s" % (currency, timestamp - timestamp % (60*60*24))), (price, volume) #day
-		yield str("BTC_%s_hourly_%s" % (currency, timestamp - timestamp % (60*60))), (price, volume) #hours
-		yield str("BTC_%s_minutely_%s" % (currency, timestamp - timestamp % 60)), (price, volume) #minutes
+		if volume > 0:
+			yield str("BTC_%s_daily_%s" % (currency, timestamp - timestamp % (60*60*24))), (price, volume) #day
+			yield str("BTC_%s_hourly_%s" % (currency, timestamp - timestamp % (60*60))), (price, volume) #hours
+			yield str("BTC_%s_minutely_%s" % (currency, timestamp - timestamp % 60)), (price, volume) #minutes
 
 
 	def reducer(self, key, tuples):

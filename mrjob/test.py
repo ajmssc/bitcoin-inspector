@@ -1,6 +1,9 @@
 #import bitcoin_pb2, base64
 import sys
-
+def get_hash(btcaddress):
+	return hash(btcaddress) % ((sys.maxsize + 1) * 2)
+print get_hash("1Q68ML9NU9udXDDZ7FTyWag4z985qBvaW5")
+print hash("1Q68ML9NU9udXDDZ7FTyWag4z985qBvaW5")
 
 # #mystring = "CkAwMDAwMDAwMGJhMzZlYjkyOWRjOTAxNzBhOTZlZTNlZmI3NmNiZWJlZTBlMGU1YzRkYTllYjBiNmU3NGQ5MTI0EOu6EhjXASCfnAEqQgpAYzFiMDlmYTZiZGMwYjEyYjE1Y2MxNDAwZDU5OGZmZWQyOWRkMzNiMmUyODIwOTNhNDg2NDZkMWI3YjM4MGM5ODABOMTSndMEQQAAwAC8K9BBSggxZDAwZmZmZlUAAIA/WkAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwNGUyMDRlMjA0ZTIwYkAwMDAwMDAwMDZlYjVjMjc5OWIwZjVmYWZhYjY0MzVkYWVlY2VmOGU3ZjYwOWI3MzFjOTg3OWMzZjc0ZjI4YzczakAwMDAwMDAwMDc3MGViZTg5NzI3MGNhNWY2ZDUzOWQ4YWZiNGVhNGY0ZTc1Nzc2MWEzNGNhODJlMTcyMDdkODg2"
 
@@ -37,13 +40,13 @@ import sys
 
 
 
-import numpy
-tuples = [(123,1.0023), (1243,1.00223), (1523,1.00123), (1213,1.00203), (1263,1.00923), (1523,1.08023), (1263,1.07023), (1273,1.07023), (1253,1.07023), ]
+# import numpy
+# tuples = [(123,1.0023), (1243,1.00223), (1523,1.00123), (1213,1.00203), (1263,1.00923), (1523,1.08023), (1263,1.07023), (1273,1.07023), (1253,1.07023), ]
 
-prices = [numpy.float(t[0]) for t in tuples]
-volumes = [numpy.float(t[1]) for t in tuples]
+# prices = [numpy.float(t[0]) for t in tuples]
+# volumes = [numpy.float(t[1]) for t in tuples]
 
-print prices
-print volumes
+# print prices
+# print volumes
 
-print numpy.average(prices, weights=volumes)
+# print numpy.average(prices, weights=volumes)

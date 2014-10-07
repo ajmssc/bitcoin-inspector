@@ -1,9 +1,17 @@
 from mapred_bitcoin_wallets import Bitcoin_job
-import sys
+import sys, inspect
+
+
+
+
+
+
 import mysql.connector
 
 
 if __name__ == '__main__':
+	sys.argv.append('--jobconf')
+	sys.argv.append('mapred.job.name=' + inspect.getmodulename(__file__))
 	mr_job = Bitcoin_job(args=sys.argv[1:])
 	with mr_job.make_runner() as runner:
 		runner.run()
@@ -29,5 +37,3 @@ if __name__ == '__main__':
 		db.commit()
 		print "Entries processed: %s" % total_entries
 
-
-#cursor.executemany(stmt_insert, transactions_wallets)
