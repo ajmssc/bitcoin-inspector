@@ -10,8 +10,7 @@ from cassandra.cluster import Cluster
 from cassandra.query import BatchStatement
 
 if __name__ == '__main__':
-	sys.argv.append('--jobconf')
-	sys.argv.append('mapred.job.name=' + inspect.getmodulename(__file__))
+	sys.argv += ['--jobconf', 'mapred.job.name=' + inspect.getmodulename(__file__)]
 	mr_job = Bitcoin_job(args=sys.argv[1:])
 	with mr_job.make_runner() as runner:
 		runner.run()
@@ -21,14 +20,14 @@ if __name__ == '__main__':
 		session.execute("TRUNCATE data")
 		
 		batch = BatchStatement()
-		stmt_insert = session.prepare("INSERT INTO data (address, balance) VALUES (?,?)")
+		stmt_insert = session.prepare("INSERT INTO data (balance_int, balance, address) VALUES (?,?,?)")
 		
 		for line in runner.stream_output():
 			try:
 				key, value = mr_job.parse_output_line(line)
-				batch.add(stmt_insert, [key, value])
+				batch.add(stmt_insert, [int(value), value, key])
 				total_entries += 1
-				if total_entries % 25000 == 0:
+				if total_entries % 65000 == 0:
 					session.execute(batch)
 					batch = BatchStatement()
 			except Exception, e:
