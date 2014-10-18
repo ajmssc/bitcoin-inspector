@@ -7,11 +7,11 @@ Bitcoin Inspector
 ## Intro
 **Bitcoin Inspector** is an open-source data pipeline that supports historical and live queries against the bitcoin network. It includes dynamic charts and visualizations with drilldown capabilities to explore bitcoin related data.
 It makes use of the following technologies:
-- Kafka 0.8.1.1
-- Storm 0.9.2
-- Hadoop
+- Apache Kafka 0.8.1.1
+- Apache Storm 0.9.2
+- Apache Hadoop
 - Yelp's MrJob mapreduce framework
-- HBase
+- Apache HBase
 - MySQL
 - Flask with the following frameworks: HighCharts, jQuery, Bootstrap, metisMenu, Font Awesome, SBAdmin2 css theme
 
@@ -19,7 +19,7 @@ For an explanation of Bitcoin please visit [Khan Academy's explanation of Bitcoi
 
 ## Live Demo
 A live demo is currently (September 2014) running at http://bitcoin-inspector.com
-A [screencast](https://www.youtube.com/watch?v=3UJqJWoZ8Ro) is also available on Youtube in case of a server downtime
+A [screencast](https://www.youtube.com/watch?v=ONI3STAHb0k) is also available on Youtube in case of a server downtime
 
 Read further for more details about the project
 
