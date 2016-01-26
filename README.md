@@ -31,7 +31,7 @@ As of September 2014, the **Bitcoin block chain** (the transaction log since the
 ## Connecting To The Bitcoin Network
 ![client](github/images/bitcoin-client.png)
 
-The pipeline obtains data from the bitcoin client using a **JSON RPC API**. The bitcoin client allows querying for specific blocks (by hash and by block #) and responds with JSON formatted data. Python jobs (see bitcoin-client repository) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
+The pipeline obtains data from the bitcoin client using a **JSON RPC API**. The bitcoin client allows querying for specific blocks (by hash and by block #) and responds with JSON formatted data. Python jobs (see https://github.com/ajmssc/bitcoin-inspector-webserver/tree/master/bitcoin) is used to query periodically for missing blocks and transactions, and a realtime job also in Python monitors the memory pool of the client to detect new (unconfirmed) transactions.
 
 Another Python job also polls exchange data from the [btc-e.com](http://btc-e.com) (Bitcoin Exchange) website for monitoring the exchange rate in various currencies.
 
